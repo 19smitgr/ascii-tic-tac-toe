@@ -22,10 +22,9 @@ def turn(round_number):
 
 		remainder_when_divided_by_number = number % number_to_divide_by
 
-		if remainder_when_divided_by_number == 0:
-			divisible_by_certain_number = True
-		else:
-			divisible_by_certain_number = False
+		#sets to either True or False
+		divisible_by_certain_number = remainder_when_divided_by_number == 0
+
 
 		return divisible_by_certain_number
 
