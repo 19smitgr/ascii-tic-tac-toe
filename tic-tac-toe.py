@@ -30,7 +30,7 @@ def turn(round_number):
 		return divisible_by_certain_number
 
 	#this method paints the grid, and inserts an endline every third item
-	#by default, print() prints an endline.  By specifying 
+	#by default, print() prints an endline.  By specifying end = "", no newline is created
 	def paint_grid():
 		for item in range(0,31):
 			check_if_is_divisible_by_a_certain_number(item, 3)
