@@ -118,7 +118,7 @@ round = 0
 
 while unused_grid_spaces:
 	#When the program runs, the round will become 1 and the program will start
-	round = round + 1
+	round += 1
 	turn(round)
 
 	
