@@ -5,7 +5,7 @@
 		--See bottom for more information--
 
 """
-
+from __future__ import print_function, division
 
 #tic-tac-toe board split into an array
 #extra "" added at the beginning so the iteration starts at 1
@@ -15,6 +15,7 @@ grid = ["", "    A  ", "   B   ", "  C  ", "       ", "|     ", "|     ", "1    
 unused_grid_spaces = ["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3"]
 
 def turn(round_number):
+
 	#this method is for the purpose of making a new line after every third item in the array
 	#otherwise, the grid would be all in one line
 	def check_if_is_divisible_by_a_certain_number(number, number_to_divide_by):
