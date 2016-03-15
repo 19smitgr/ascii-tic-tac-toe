@@ -149,11 +149,10 @@ def winning_rules(winning_combination):
 
 while unused_grid_spaces:
 
-
-
 	#When the program runs, the round will become 1 and the program will start
 	round += 1
 
+	#Actually goes from 0 to 7 since it counts from zero
 	for one_through_eight in range(0,7):
 		
 		win_or_not = winning_rules(one_through_eight)
