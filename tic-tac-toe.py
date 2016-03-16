@@ -109,13 +109,10 @@ def turn(round_number):
 				box_with_letter_inserted_into_it = insert(grid[space_in_the_grid_the_user_picked], "x", 3)
 
 		#When the insert() function is called, the string is enlarged by one space
-		#the following 3 lines take off the last space in the string
-		backwards_element_in_grid_list = box_with_letter_inserted_into_it[::-1]  #Reverse the string ex. 'Example' -> 'elpmaxE'
-		take_off_last_space = backwards_element_in_grid_list[1:]  #Start at the second letter: 'elpmaxE' -> 'lpmaxE'
-		undo_backwards_element_in_grid_list = take_off_last_space[::-1] #Undo the reverse: 'lpmaxE' -> 'Exampl'
+		take_off_last_space = box_with_letter_inserted_into_it[:len(box_with_letter_inserted_into_it)-1]
 
 		#change element in grid[] to the new string with an 'x' in it
-		grid[space_in_the_grid_the_user_picked] = undo_backwards_element_in_grid_list
+		grid[space_in_the_grid_the_user_picked] = take_off_last_space
 
 	#calls previous function and uses the cases dictionary to find the key/pair value
 	insert_letter_into_square_in_grid(cases.get(play_in_what_space))
@@ -130,7 +127,7 @@ def turn(round_number):
 	paint_grid()
 
 #set default round equal to zero
-round = 0
+round_number_increment = 0
 
 #set default to not winning
 win = False
@@ -150,7 +147,7 @@ def winning_rules(winning_combination):
 while unused_grid_spaces:
 
 	#When the program runs, the round will become 1 and the program will start
-	round += 1
+	round_number_increment += 1
 
 	#Actually goes from 0 to 7 since it counts from zero
 	for one_through_eight in range(0,7):
@@ -165,7 +162,7 @@ while unused_grid_spaces:
 	if win:
 		break
 	elif win == False:
-		turn(round)
+		turn(round_number_increment)
 
 
 
