@@ -151,11 +151,9 @@ while unused_grid_spaces:
 
 	#Actually goes from 0 to 7 since it counts from zero
 	for one_through_eight in range(0,7):
-		
 		win_or_not = winning_rules(one_through_eight)
-		if win_or_not:
-			global win
 
+		if win_or_not:
 			win = True
 			break
 
