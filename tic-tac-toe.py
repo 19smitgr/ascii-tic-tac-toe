@@ -153,9 +153,25 @@ while unused_grid_spaces:
 	for one_through_eight in range(0,7):
 		win_or_not = winning_rules(one_through_eight)
 
-		if win_or_not:
-			win = True
-			break
+	if win_or_not:
+		win = True
+
+		while True:
+			want_to_play_again = input("\nWould you like to play again?  Y/N:  ").upper().strip()
+
+			#checks to see if the user input matches any of the acceptable responses
+			if want_to_play_again == "Y":
+				round_number_increment = 0
+
+				round_number_increment += 1
+
+				turn(round_number_increment)
+			elif want_to_play_again == "N":
+				break
+			else:
+				print("\nYour answer isn't valid.  Please type either Y or N.")
+				continue
+			
 
 	if win:
 		break
