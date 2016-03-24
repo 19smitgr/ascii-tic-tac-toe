@@ -10,11 +10,11 @@
 #extra "" added at the beginning so the iteration starts at 1
 grid = ["", "    A  ", "   B   ", "  C  ", "       ", "|     ", "|     ", "1      ", "|     ", "|     ", "  _____", "|_____", "|_____", "       ", "|     ", "|     ", "2      ", "|     ", "|     ", "  _____", "|_____", "|_____", "       ", "|     ", "|     ", "3      ", "|     ", "|     ", "       ", "|     ", "|     " ]
 
-cleared_grid = grid[:]
-
+cleared_grid = list(grid)
 
 def clear_grid():
 	grid = cleared_grid[:]
+	return grid
 
 
 #Grid spaces that haven't been used; gets modified at the end of script
@@ -170,7 +170,7 @@ while unused_grid_spaces:
 				round_number_increment = 0
 
 				round_number_increment += 1
-				clear_grid()
+				grid = clear_grid()
 
 				#prints newline
 				print()
