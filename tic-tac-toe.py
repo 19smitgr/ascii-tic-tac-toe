@@ -1,34 +1,24 @@
 """
-
 	Tic-Tac-Toe: a game coded by Garrett Smith
-
 		--See bottom for more information--
-
 """
 
-#tic-tac-toe board split into an array
-#extra "" added at the beginning so the iteration starts at 1
-grid = ["", "    A  ", "   B   ", "  C  ", "       ", "|     ", "|     ", "1      ", "|     ", "|     ", "  _____", "|_____", "|_____", "       ", "|     ", "|     ", "2      ", "|     ", "|     ", "  _____", "|_____", "|_____", "       ", "|     ", "|     ", "3      ", "|     ", "|     ", "       ", "|     ", "|     " ]
+print("\n\nTic-Tac-Toe: a game coded by Garrett Smith\n\n")
 
-#Grid spaces that haven't been used; gets modified at the end of script
-unused_grid_spaces = ["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3"]
+def set_up_board():
+	#tic-tac-toe board split into an array
+	#extra "" added at the beginning so the iteration starts at 1
+	grid = ["", "    A  ", "   B   ", "  C  ", "       ", "|     ", "|     ", "1      ", "|     ", "|     ", "  _____", "|_____", "|_____", "       ", "|     ", "|     ", "2      ", "|     ", "|     ", "  _____", "|_____", "|_____", "       ", "|     ", "|     ", "3      ", "|     ", "|     ", "       ", "|     ", "|     " ]
 
-#arrays for recording which spaces have been played in from each letter: 'x' and 'o'
-spaces_that_x_has_played_in = []
-spaces_that_o_has_played_in = []
+	#Grid spaces that haven't been used; gets modified at the end of script
+	unused_grid_spaces = ["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3"]
 
-cleared_grid = list(grid)
-cleared_unused_grid_spaces = list(unused_grid_spaces)
-cleared_spaces_that_x_has_played_in = list(spaces_that_x_has_played_in)
-cleared_spaces_that_o_has_played_in = list(spaces_that_o_has_played_in)
-
-def clear_arrays_from_previous_game():
-	grid = cleared_grid[:]
-	unused_grid_spaces = cleared_unused_grid_spaces[:]
-	spaces_that_x_has_played_in = cleared_spaces_that_x_has_played_in[:]
-	spaces_that_o_has_played_in = cleared_spaces_that_o_has_played_in[:]
+	#arrays for recording which spaces have been played in from each letter: 'x' and 'o'
+	spaces_that_x_has_played_in = []
+	spaces_that_o_has_played_in = []
 
 	return grid, unused_grid_spaces, spaces_that_x_has_played_in, spaces_that_o_has_played_in
+
 
 #3D array of all winning combinations
 winning_combinations = [["A1", "B2", "C3"], ["A3", "B2", "C1"], ["A1", "A2", "A3"], ["B1", "B2", "B3"], ["C1", "C2", "C3"], ["A1", "B1", "C1"], ["A2", "B2", "C2"], ["A3", "B3", "C3"]]
@@ -139,12 +129,6 @@ def turn(round_number):
 	#repaint grid once calculations are all done
 	paint_grid()
 
-#set default round equal to zero
-round_number_increment = 0
-
-#set default to not winning
-win = False
-
 
 def winning_rules(winning_combination):
 	if set(winning_combinations[winning_combination]).issubset(spaces_that_o_has_played_in):
@@ -156,62 +140,51 @@ def winning_rules(winning_combination):
 	else:
 		return False
 
-while unused_grid_spaces:
-	
-	#When the program runs, the round will become 1 and the program will start
-	round_number_increment += 1
+def do_you_want_to_play_again():
+	while True:
+		does_user_want_to_play_again = input("\nDo you want to play again?  Y/N:  ").upper().strip()
 
-	#Actually goes from 0 to 7 since it counts from zero
-	for one_through_eight in range(0,7):
-		win_or_not = winning_rules(one_through_eight)
+		if does_user_want_to_play_again == "Y":
+			run_game()
+		elif does_user_want_to_play_again == "N":
+			print("\nThanks for playing!")
+			exit()
+		else:
+			print("\nThat doesn't make sense.  Please type in either \"Y\" or \"N.\"\n")
+			continue
 
-		play_again_loop = False
+def run_game():
+	#set default round equal to zero
+	round_number_increment = 0
 
-		if win_or_not:
-			win = True
-			play_again_loop = True
+	#set default to not winning
+	win = False
 
-		while play_again_loop:
-			want_to_play_again = input("\nWould you like to play again?  Y/N:  ").upper().strip()
+	global grid, unused_grid_spaces, spaces_that_x_has_played_in, spaces_that_o_has_played_in
+	grid, unused_grid_spaces, spaces_that_x_has_played_in, spaces_that_o_has_played_in = set_up_board()
 
-			#checks to see if the user input matches any of the acceptable responses
-			if want_to_play_again == "Y":
-				round_number_increment = 0
+	while unused_grid_spaces:
 
-				round_number_increment += 1
-				grid, unused_grid_spaces, spaces_that_x_has_played_in, spaces_that_o_has_played_in = clear_arrays_from_previous_game()
+		#When the program runs, the round will become 1 and the program will start
+		round_number_increment += 1
 
-				#prints newline
-				print()
+		#checks all 8 winning positions to see if user has won
+		for one_through_eight in range(0,7):
+			win = winning_rules(one_through_eight)
 
-				win = False
+			if win:
+				do_you_want_to_play_again()
 
-				turn(round_number_increment)
-			elif want_to_play_again == "N":
-				play_again_loop = False
-
-				break
-			else:
-				print("\nYour answer isn't valid.  Please type either Y or N.")
-				continue
-			
-
-	if win:
-		break
-	elif win == False:
 		turn(round_number_increment)
 
-
+run_game()
 
 """
 Mini-sketch:
-
    A  B  C
 1 __|__|__
 2 __|__|__
 3   |  |  
-
-
 
 Enlarged-sketch:
     A     B     C  
@@ -225,6 +198,5 @@ Enlarged-sketch:
 3      |     |     
        |     |     
 
-grid = ["    A  ", "   B   ", "  C  ", "       ", "|     ", "|     ", "1      ", "|     ", "|     ", "  _____", "|_____", "|_____", "       ", "|     ", "|     ", "2      ", "|     ", "|     ", " _____", "|_____", "|_____", "       ", "|     ", "|     ", "3      ", "|     ", "|     ", "       ", "|     ", "|     " ]
-
+the enlarged-sketch is ["    A  ", "   B   ", "  C  ", "       ", "|     ", "|     ", "1      ", "|     ", "|     ", "  _____", "|_____", "|_____", "       ", "|     ", "|     ", "2      ", "|     ", "|     ", " _____", "|_____", "|_____", "       ", "|     ", "|     ", "3      ", "|     ", "|     ", "       ", "|     ", "|     " ]
 """
